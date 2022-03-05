@@ -317,7 +317,109 @@ public class Test {
             i++;
         }
     }
-    public static void main(String[] args){
-        System.out.println(longestCommonPrefix(new String[]{""}));
+//    三数之和
+    public static List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> list=new ArrayList<>();
+        int i,j,k,il=-1,jl,kl;
+        for (i = 0; i < nums.length; i++) {
+            if (il!=-1&&nums[il]==nums[i])
+                continue;
+            il=i;
+            j=i+1;
+            k=nums.length-1;
+            jl=-1;kl=-1;
+            while (j<k){
+                if (jl!=-1&&nums[j]==nums[jl]&&jl!=j){
+                    j++;continue;
+                }else if (kl!=-1&&nums[k]==nums[kl]&&kl!=k){
+                    k--;continue;
+                }
+                jl=j;kl=k;
+                if (nums[i]+nums[j]+nums[k]==0){
+                    ArrayList<Integer> arrayList=new ArrayList<>();
+                    arrayList.add(nums[i]);
+                    arrayList.add(nums[j]);
+                    arrayList.add(nums[k]);
+                    list.add(arrayList);
+                    j++;k--;
+                }else if (nums[i]+nums[j]+nums[k]<0){
+                    j++;
+                }else if (nums[i]+nums[j]+nums[k]>0){
+                    k--;
+                }
+
+            }
+        }
+        return list;
     }
+//    电话号码的字母组合
+    public static List<String> letterCombinations(String digits) {
+        List<String> list=new ArrayList<>();
+        if (digits.equals(""))
+            return list;
+        String[] strings=new String[]{
+                "abc",//2
+                "def",
+                "ghi",
+                "jkl",
+                "mno",
+                "pqrs",
+                "tuv",
+                "wxyz",
+        };
+        int i=0;
+        fun2(strings,digits,i,null,list);
+        return list;
+    }
+    public static String fun(String[] strings,char x){
+        return strings[x-50];
+    }
+    public static void fun2(String[] strings, String digits, int i,StringBuffer s,List<String> list){
+        if (i==digits.length()){
+            list.add(s.toString());
+            return;
+        }
+        String fun = fun(strings, digits.charAt(i));
+        if (s==null)
+            s=new StringBuffer();
+        StringBuffer s2;
+        for (int j = 0; j < fun.length(); j++) {
+            s2=new StringBuffer(s);
+            s2.append(fun.charAt(j));
+            fun2(strings,digits,i+1,s2,list);
+        }
+    }
+//    删除链表的倒数第 N 个结点
+    static class ListNode {
+        int val;
+        ListNode next;
+        ListNode() {}
+        ListNode(int val) { this.val = val; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode l=head;
+        int sum=0;
+        while (l!=null){
+            sum++;
+            l=l.next;
+        }
+        l=head;
+        int i;
+        for (i = 0; i < sum - n-1; i++)
+            l=l.next;
+        if (sum - n-1<0)
+            return head.next;
+        if (l.next!=null)
+            l.next=l.next.next;
+        return head;
+    }
+
+    public static void main(String[] args){
+        ListNode head=new ListNode(1,new ListNode(2));
+        ListNode listNode = removeNthFromEnd(head, 2);
+
+    }
+
 }
