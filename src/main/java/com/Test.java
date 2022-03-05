@@ -415,6 +415,10 @@ public class Test {
             l.next=l.next.next;
         return head;
     }
+//    括号生成
+    public static List<String> generateParenthesis(int n) {
+        //TODO
+    }
 
     public static void main(String[] args){
         ListNode head=new ListNode(1,new ListNode(2));
