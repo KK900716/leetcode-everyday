@@ -417,13 +417,32 @@ public class Test {
     }
 //    括号生成
     public static List<String> generateParenthesis(int n) {
-        //TODO
+        int left=n,right=n;
+        List<String> list=new ArrayList<>();
+        generate(list,left,right,"");
+        return list;
+    }
+    public static List<String> generate(List<String> list,int left,int right,String s){
+        if (left==0&&right==0){
+            list.add(s);
+        }
+        if (left>0){
+            String s1="";
+            s1=s+"(";
+            generate(list,left-1,right,s1);
+        }
+        if (right>0){
+            if (right-1<left)
+                return list;
+            String s1="";
+            s1=s+")";
+            generate(list,left,right-1,s1);
+        }
+        return list;
     }
 
     public static void main(String[] args){
-        ListNode head=new ListNode(1,new ListNode(2));
-        ListNode listNode = removeNthFromEnd(head, 2);
-
+        System.out.println(generateParenthesis(12));
     }
 
 }
