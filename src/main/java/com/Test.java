@@ -440,9 +440,73 @@ public class Test {
         }
         return list;
     }
-
+//    括号匹配
+    public static int longestValidParentheses(String s) {
+        Stack<Integer> stack=new Stack<>();
+        stack.push(-1);
+        int max=0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i)=='(')
+                stack.push(i);
+            else if (s.charAt(i)==')'){
+                int pop = stack.pop();
+                if (stack.size()==0)
+                    stack.push(i);
+                if (i-stack.peek()>max)
+                    max=i-stack.peek();
+            }
+        }
+        return max;
+    }
+//    二分查找
+    public static int search(int[] nums, int target) {
+        int min=0,max=nums.length;
+        while (min<max){
+            if (nums[(max+min)/2]<target){
+                min=(max+min)/2+1;
+            }else if (nums[(max+min)/2]>target){
+                max=(max+min)/2;
+            }else if (nums[(max+min)/2]==target){
+                return (max+min)/2;
+            }
+        }
+        return -1;
+    }
+//  第一个错误的版本
+    public static boolean isBadVersion(int version){
+        if (version<1702766719) return false;//1702766719
+        return true;
+    }
+    public static int firstBadVersion(int n) {
+        long x=n,min=0;
+        while(x-min>1){
+            if(isBadVersion((int)((min+x)/2))){
+                x=(min+x)/2;
+            }else{
+                min=(min+x)/2+1;
+            }
+        }
+        if(isBadVersion((int)min))
+            return (int)min;
+        return (int)min+1;
+    }
+//    搜索插入位置
+    public static int searchInsert(int[] nums, int target) {
+        int min=0,max=nums.length,mid=0;
+        while (min<max){
+            mid=(max+min)/2;
+            if (nums[mid] > target) max = mid;
+            else min = mid+1;
+        }
+        System.out.println(min+":"+max);
+        for (int i = min-1; i >= 0; i--) {
+            if (nums[i]==target)
+                min--;
+        }
+        return min;
+    }
     public static void main(String[] args){
-        System.out.println(generateParenthesis(12));
+        System.out.println(searchInsert(new int[]{1,3,5,6},5));
     }
 
 }
