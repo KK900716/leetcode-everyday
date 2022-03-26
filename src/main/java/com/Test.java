@@ -498,15 +498,55 @@ public class Test {
             if (nums[mid] > target) max = mid;
             else min = mid+1;
         }
-        System.out.println(min+":"+max);
         for (int i = min-1; i >= 0; i--) {
             if (nums[i]==target)
                 min--;
         }
         return min;
     }
-    public static void main(String[] args){
-        System.out.println(searchInsert(new int[]{1,3,5,6},5));
+//    TODO 有效的数独
+    public static boolean isValidSudoku(char[][] board) {
+        int[] row = new int[9], col = new int[9];
+        int[] v = new int[9];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.') continue;
+                int num = 1 << (board[i][j] - '0');
+                int b = (i / 3) * 3 + j / 3;
+                if ((row[i] & num) != 0 || (col[j] & num) != 0 || (v[b] & num) != 0) return false;
+                row[i] |= num;
+                col[j] |= num;
+                v[b] |= num;
+            }
+        }
+        return true;
     }
-
+//    外观数列
+    public static String countAndSay(int n) {
+        String s="1";
+        StringBuilder s0=new StringBuilder();
+        int sum;
+        for (int i = 1; i < n; i++) {
+            sum=1;
+            char x= s.charAt(0);
+            for (int j = 1; j < s.length(); j++) {
+                if (s.charAt(j)==x){
+                    sum++;
+                }else {
+                    s0.append(sum);
+                    s0.append(x);
+                    sum=1;
+                    x=s.charAt(j);
+                }
+            }
+            s0.append(sum);
+            s0.append(x);
+            s=s0.toString();
+            s0.delete(0,s0.length());
+        }
+        return s;
+    }
+    public static void main(String[] args){
+        System.out.println(countAndSay(1));
+    }
 }
