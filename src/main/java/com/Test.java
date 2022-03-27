@@ -546,7 +546,103 @@ public class Test {
         }
         return s;
     }
+//    最接近的三数之和
+    public static int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        int poor=Integer.MAX_VALUE,sum,value=0;
+        for (int i = 0; i < nums.length; i++) {
+            int j=0;
+            int k=nums.length-1;
+            while (j<k){
+                if (i!=j&&i!=k){
+                    sum=nums[i]+nums[j]+nums[k];
+                    if (poor>Math.abs(target-sum)){
+                        poor=Math.abs(target-sum);
+                        value=sum;
+                    }
+                    if (target==sum){
+                        return target;
+                    }else if (target>sum){
+                        j++;
+                    }else{
+                        k--;
+                    }
+                }else if (i==j){
+                    j++;
+                }else {
+                    k--;
+                }
+            }
+        }
+        return value;
+    }
+//    四数之和
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> list=new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i+1; j < nums.length; j++) {
+                int sum,k=j+1,l=nums.length-1;
+                while (k<l){
+                    if (k!=i&&k!=j&&l!=i&&l!=j){
+                        sum=nums[i]+nums[j]+nums[k]+nums[l];
+                        if (sum==target){
+                            List<Integer> res=new ArrayList<>();
+                            res.add(nums[i]);
+                            res.add(nums[j]);
+                            res.add(nums[k]);
+                            res.add(nums[l]);
+                            if (!list.contains(res))
+                                list.add(res);
+                            k++;
+                            l--;
+                            continue;
+                        }else if (sum<target){
+                            k++;
+                        }else {
+                            l--;
+                        }
+                    }else if (k==i||k==j){
+                        k++;
+                    }else {
+                        l--;
+                    }
+                }
+            }
+        }
+        return list;
+    }
+//    有效的括号
+    public static boolean isValid(String s) {
+        Stack<Character> stack=new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            try {
+                if (s.charAt(i)=='('){
+                    stack.push('(');
+                }else if (s.charAt(i)=='{'){
+                    stack.push('{');
+                }else if (s.charAt(i)=='['){
+                    stack.push('[');
+                }else if (s.charAt(i)==')'){
+                    if (stack.pop() !='('){
+                        return false;
+                    }
+                }else if (s.charAt(i)=='}'){
+                    if (stack.pop() !='{'){
+                        return false;
+                    }
+                }else if (s.charAt(i)==']'){
+                    if (stack.pop()!='['){
+                        return false;
+                    }
+                }
+            }catch (Exception e){
+                return false;
+            }
+        }
+        return stack.size() == 0;
+    }
     public static void main(String[] args){
-        System.out.println(countAndSay(1));
+        System.out.println(isValid(""));
     }
 }
