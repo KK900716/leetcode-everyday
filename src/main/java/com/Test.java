@@ -642,7 +642,92 @@ public class Test {
         }
         return stack.size() == 0;
     }
+//    交替位二进制数
+    public static boolean hasAlternatingBits(int n) {
+        String s = Integer.toBinaryString(n);
+        boolean x=false;
+        x= s.charAt(0) != '0';
+        for (int i = 1; i < s.length(); i++) {
+            if (x){
+                if (s.charAt(i)=='0')
+                    x=false;
+                else
+                    return false;
+            }else {
+                if (s.charAt(i)=='1')
+                    x=true;
+                else
+                    return false;
+            }
+        }
+        return true;
+    }
+//    pow
+    public static double myPow(double x, int n) {
+        if (x==1||n==0){
+            return 1;
+        }else if (x==-1){
+            if (n%2==0)
+                return 1;
+            return -1;
+        }else {
+            long a=n;
+            int sum=0,i;
+            boolean t=true;
+            double b=x;
+            if (a<0){
+                t=false;
+                a=-a;
+            }
+            long c=1;
+            for (i = 0; i < 32; i++) {
+                c*=2;
+                if (c>=a)
+                    break;
+            }
+            for (int j = 0; j < i; j++) {
+                b*=b;
+            }
+            int p= (int) (a-c/2);
+            for (int j = 0; j < p; j++) {
+                b*=x;
+            }
+            if (t)
+                return b;
+            return 1/b;
+        }
+    }
+//    全排列
+    public static List<List<Integer>> permute(int[] nums) {
+        boolean[] zt=new boolean[nums.length];
+        fun(zt,nums,0,null,-1);
+        return list;
+    }
+    private static List<List<Integer>> list=new ArrayList<>();
+    private static void fun(boolean[] zt,int[] nums,int i,List<Integer> l,int j0){
+        if (i==nums.length){
+            list.add(l);
+        }else {
+            boolean[] zt0=new boolean[nums.length];
+            zt0=Arrays.copyOf(zt,zt.length);
+            if (j0!=-1){
+                zt0[j0]=true;
+            }
+            for (int j = 0; j < zt0.length; j++) {
+                if (!zt0[j]){
+                    List<Integer> l0;
+                    if (l==null)
+                        l0=new ArrayList<>();
+                    else
+                        l0=new ArrayList<>(l);
+                    l0.add(nums[j]);
+                    fun(zt0,nums,i+1,l0,j);
+                }
+            }
+        }
+    }
     public static void main(String[] args){
-        System.out.println(isValid(""));
+        System.out.println(permute(new int[]{0,1}));
+
     }
 }
