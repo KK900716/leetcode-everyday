@@ -1,4 +1,4 @@
-package com;
+package com.jdkDL;
 
 public class InteImpl implements Inte{
     @Override

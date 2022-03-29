@@ -1,4 +1,6 @@
-package com;
+package com.jdkDL;
+
+import com.test.Test2;
 
 import java.io.*;
 
