@@ -2,7 +2,7 @@ package com;
 
 import java.util.*;
 
-public class Test {
+public class Test1 {
     //两数之和
     public int[] twoSum(int[] nums, int target) {
         HashMap<Integer,Integer> hashMap=new HashMap<>();
@@ -728,6 +728,5 @@ public class Test {
     }
     public static void main(String[] args){
         System.out.println(permute(new int[]{0,1}));
-
     }
 }
