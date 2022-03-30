@@ -2,6 +2,7 @@ package com.test;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Test2 implements Serializable {
@@ -29,7 +30,34 @@ public class Test2 implements Serializable {
             }
         }
     }
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+//    组合总和
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+    List<List<Integer>> list=new ArrayList<>();
+    Arrays.sort(candidates);
+    for (int i = 0; i < candidates.length; i++) {
+        combinationSumFun(list,candidates,target,0,new List<Integer>());
+    }
+    return list;
+}
+    private static void combinationSumFun(List<List<Integer>> list,int[] candidates,int target,int sum,List<Integer> csum){
+        if (target==sum){
+            list.add(csum);
+        }else if (target>sum){
 
+        }
+    }
     public static void main(String[] args) {
         Test2 test2=new Test2();
         TreeNode treeNode= new TreeNode();
@@ -43,16 +71,5 @@ public class Test2 implements Serializable {
         List<String> list = test2.binaryTreePaths(treeNode);
         System.out.println(list);
     }
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
+
 }

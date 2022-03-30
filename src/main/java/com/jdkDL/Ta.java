@@ -3,6 +3,7 @@ package com.jdkDL;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
+
 public class Ta {
     public static void main(String[] args) {
         InteImpl InteImpl=new InteImpl();
