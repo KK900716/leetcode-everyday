@@ -1,9 +1,7 @@
 package com.test;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Test2 implements Serializable {
     public void test(){
@@ -44,32 +42,45 @@ public class Test2 implements Serializable {
     }
 //    组合总和
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
-    List<List<Integer>> list=new ArrayList<>();
-    Arrays.sort(candidates);
-    for (int i = 0; i < candidates.length; i++) {
-        combinationSumFun(list,candidates,target,0,new List<Integer>());
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        List<Integer> combine = new ArrayList<Integer>();
+        dfs(candidates, target, ans, combine, 0);
+        return ans;
     }
-    return list;
-}
-    private static void combinationSumFun(List<List<Integer>> list,int[] candidates,int target,int sum,List<Integer> csum){
-        if (target==sum){
-            list.add(csum);
-        }else if (target>sum){
 
+    public static void dfs(int[] candidates, int target, List<List<Integer>> ans, List<Integer> combine, int idx) {
+        if (idx == candidates.length) {
+            return;
+        }
+        if (target == 0) {
+            ans.add(new ArrayList<Integer>(combine));
+            return;
+        }
+        // 直接跳过
+        dfs(candidates, target, ans, combine, idx + 1);
+        // 选择当前数
+        if (target - candidates[idx] >= 0) {
+            combine.add(candidates[idx]);
+            dfs(candidates, target - candidates[idx], ans, combine, idx);
+            combine.remove(combine.size() - 1);
         }
     }
+
     public static void main(String[] args) {
-        Test2 test2=new Test2();
-        TreeNode treeNode= new TreeNode();
-        treeNode.val=1;
-        treeNode.left= new TreeNode();
-        treeNode.left.val=2;
-        treeNode.right= new TreeNode();
-        treeNode.right.val=3;
-        treeNode.left.right= new TreeNode();
-        treeNode.left.right.val=5;
-        List<String> list = test2.binaryTreePaths(treeNode);
-        System.out.println(list);
+        System.out.println(combinationSum(new int[]{2, 3, 6, 7}, 7));
     }
+//    public static void main(String[] args) {
+//        Test2 test2=new Test2();
+//        TreeNode treeNode= new TreeNode();
+//        treeNode.val=1;
+//        treeNode.left= new TreeNode();
+//        treeNode.left.val=2;
+//        treeNode.right= new TreeNode();
+//        treeNode.right.val=3;
+//        treeNode.left.right= new TreeNode();
+//        treeNode.left.right.val=5;
+//        List<String> list = test2.binaryTreePaths(treeNode);
+//        System.out.println(list);
+//    }
 
 }
