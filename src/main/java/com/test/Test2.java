@@ -65,9 +65,77 @@ public class Test2 implements Serializable {
             combine.remove(combine.size() - 1);
         }
     }
-
+//    缺失的正整数
+    public static int firstMissingPositive(int[] nums) {
+        int i;
+        for (i = 0; i < nums.length; i++) {
+            if (nums[i]<=0){
+                nums[i]=nums.length+1;
+            }
+        }
+        for (i = 0; i < nums.length; i++) {
+            int t=Math.abs(nums[i]);
+            if (t<=nums.length){
+                nums[t-1]=-Math.abs(nums[t-1]);
+            }
+        }
+        for (i = 0; i < nums.length; i++) {
+            if (nums[i]>0){
+                return i+1;
+            }
+        }
+        return i+1;
+    }
+//    字符串相乘
+    public String multiply(String num1, String num2) {
+        int x,jw;
+        StringBuilder s=new StringBuilder();
+        StringBuilder sum=new StringBuilder();
+        for (int i = num2.length()-1; i >= 0 ; i--) {
+            jw=0;
+            s.delete(0,s.length());
+            s.append("0".repeat(num2.length()-i-1));
+            for (int j = num1.length()-1; j >= 0 ; j--) {
+                x=(num1.charAt(j)-48)*(num2.charAt(i)-48)+jw;
+                jw=x/10;
+                s.insert(0,x%10);
+            }
+            if (jw!=0){
+                s.insert(0,jw);
+                jw=0;
+            }
+            int a=sum.length();
+            int t= Math.max(sum.length(), s.length())-1;
+            for (int j = t; j >= 0; j--) {
+                if (j>=a){
+                    sum.insert(0,s.charAt(j)-48);
+                }else {
+                    if (j<s.length()){
+                        x=s.charAt(j)+sum.charAt(j)+jw-96;
+                    }else {
+                        x=sum.charAt(j)+jw-48;
+                    }
+                    jw=x/10;
+                    sum.replace(j,j+1, String.valueOf(x%10));
+                }
+            }
+            if (jw!=0){
+                sum.insert(0,jw);
+            }
+        }
+        if (sum.length()==1)
+            return sum.toString();
+        while (sum.charAt(0)==48){
+            sum.delete(0,1);
+            if (sum.length()==1){
+                break;
+            }
+        }
+        return sum.toString();
+    }
     public static void main(String[] args) {
-        System.out.println(combinationSum(new int[]{2, 3, 6, 7}, 7));
+        Test2 test2=new Test2();
+        System.out.println(test2.multiply("237","284"));
     }
 //    public static void main(String[] args) {
 //        Test2 test2=new Test2();
