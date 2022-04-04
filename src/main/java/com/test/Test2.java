@@ -2,6 +2,7 @@ package com.test;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class Test2 implements Serializable {
     public void test(){
@@ -133,9 +134,59 @@ public class Test2 implements Serializable {
         }
         return sum.toString();
     }
+//    跳跃二
+    public int jump(int[] nums) {
+        int i=0,sum=0,s,t;
+        while (i<nums.length-1){
+            s=0;
+            t=0;
+            for (int j = 1; j <= nums[i]; j++) {
+                if (i+j+1>=nums.length){
+                    return sum+1;
+                }
+                if (j+nums[i+j]>s){
+                    s=j+nums[i+j];
+                    t=j;
+                }
+            }
+            i+=t;
+            sum++;
+        }
+        return sum;
+    }
+//    字母异位词分组
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> list=new ArrayList<>();
+        HashMap<String,ArrayList<Integer>> hashMap=new HashMap<>();
+        for (int i = 0; i < strs.length; i++) {
+            IntStream chars = strs[i].chars();
+            int[] ints = chars.toArray();
+            Arrays.sort(ints);
+            StringBuilder stringBuilder=new StringBuilder();
+            for (int anInt : ints) {
+                stringBuilder.append(anInt);
+            }
+            if (hashMap.containsKey(stringBuilder.toString())){
+                ArrayList<Integer> arrayList = hashMap.get(stringBuilder.toString());
+                arrayList.add(i);
+            }else {
+                ArrayList<Integer> arrayList=new ArrayList<>();
+                arrayList.add(i);
+                hashMap.put(stringBuilder.toString(),arrayList);
+            }
+        }
+        for (ArrayList<Integer> value : hashMap.values()) {
+            List<String> l=new ArrayList<>();
+            for (int x : value) {
+                l.add(strs[x]);
+            }
+            list.add(l);
+        }
+        return list;
+    }
     public static void main(String[] args) {
         Test2 test2=new Test2();
-        System.out.println(test2.multiply("237","284"));
+        System.out.println(test2.groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"}));
     }
 //    public static void main(String[] args) {
 //        Test2 test2=new Test2();
