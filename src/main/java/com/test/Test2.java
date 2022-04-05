@@ -184,9 +184,30 @@ public class Test2 implements Serializable {
         }
         return list;
     }
+
+    public void rotate(int[][] matrix) {
+        int temp;
+        for (int j = 0; j < matrix.length/2; j++) {
+            for (int i = j; i < matrix.length - j - 1; i++) {
+                temp=matrix[i][matrix.length-j-1];
+                matrix[i][matrix.length-j-1]=matrix[j][i];
+                matrix[j][i]=temp;
+                temp=matrix[matrix.length-j-1][matrix.length-i-1];
+                matrix[matrix.length-j-1][matrix.length-i-1]=matrix[j][i];
+                matrix[j][i]=temp;
+                temp=matrix[matrix.length-i-1][j];
+                matrix[matrix.length-i-1][j]=matrix[j][i];
+                matrix[j][i]=temp;
+            }
+        }
+    }
     public static void main(String[] args) {
         Test2 test2=new Test2();
-        System.out.println(test2.groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"}));
+        int[][] matrix = {{5, 1, 9, 11}, {2, 4, 8, 10}, {13, 3, 6, 7}, {15, 14, 12, 16}};
+        System.out.println(Arrays.deepToString(matrix));
+        test2.rotate(matrix);
+        System.out.println();
+        System.out.println(Arrays.deepToString(matrix));
     }
 //    public static void main(String[] args) {
 //        Test2 test2=new Test2();
@@ -201,5 +222,4 @@ public class Test2 implements Serializable {
 //        List<String> list = test2.binaryTreePaths(treeNode);
 //        System.out.println(list);
 //    }
-
 }
