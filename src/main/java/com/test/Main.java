@@ -1,19 +1,14 @@
 package com.test;
 
-
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.Callable;
-import java.util.concurrent.LinkedBlockingQueue;
-
 /**
  * untitled：
+ * Main
  *
  * @author 44380
- * @date 2022~04~06~18:37
+ * @date 2022~04~17~1:28
  */
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
     }
 }
