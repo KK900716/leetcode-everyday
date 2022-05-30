@@ -1,10 +1,7 @@
 package com.test;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * untitled：
@@ -15,8 +12,38 @@ import java.util.List;
  */
 public class Test4 {
     public static void main(String[] args) {
-
+        Test4 test4=new Test4();
+//        System.out.println(test4.deleteDuplicates());
     }
+
+    /**
+     * com.test.Test4.ListNode.Definition for singly-linked list.():
+     * 
+     * @author 44380
+     * @date 2022/5/24~19:35 
+     * @return
+     */
+    public class ListNode {
+      int val;
+      ListNode next;
+      ListNode() {}
+      ListNode(int val) { this.val = val; }
+      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+//    public ListNode deleteDuplicates(ListNode head) {
+//        ListNode res=head;
+//        if (head.next==null){
+//            return head;
+//        }
+//        int t=head.val;
+//        while (head.next!=null){
+//            if (head.val!=head.next.val){
+//                head=head.next;
+//            }else {
+////                if (head=head.next)
+//            }
+//        }
+//    }
     /**
      * com.test.Test4.merge():
      *  以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回 一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间 。
