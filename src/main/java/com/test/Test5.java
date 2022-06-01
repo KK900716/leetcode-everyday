@@ -1,8 +1,5 @@
 package com.test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * untitled：
  * leetcode
@@ -18,12 +15,7 @@ public class Test5 {
      */
     public static void main(String[] args) {
         Solution solution=new Solution();
-        int[] ints = {
-                0, 0, 1, 1, 1, 2, 2, 3, 3, 4
-        };
-        int i = solution.removeDuplicates(ints);
-        System.out.println(i);
-        System.out.println(Arrays.toString(ints));
+
     }
 }
 /**
@@ -33,6 +25,77 @@ public class Test5 {
  * @date 2022~05~30~22:40
  */
 class Solution {
+    /**
+     * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+     * @author 44380
+     * @date 2022/6/2~1:21
+     * @param n 阶
+     * @return int
+     */
+    public int climbStairs(int n) {
+        return 0;
+    }
+    /**
+     * 给你一个链表数组，每个链表都已经按升序排列。
+     * 请你将所有链表合并到一个升序链表中，返回合并后的链表。
+     * @author 44380
+     * @date 2022/6/1~23:40
+     * @param lists 升序排列链表
+     * @return com.test.ListNode 合并后的链表
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode res=new ListNode();
+        ListNode ope=res;
+        // 创建一个标志当前和并的数组
+        int i;
+        while (true){
+            for (i = 0; i < lists.length; i++) {
+                if (lists[i] != null) {
+                    break;
+                }
+            }
+            if (i==lists.length){
+                return res.next;
+            }
+            // 找到这个下标
+            int val = mergeKLists_find(lists);
+            // 添加这个结果进入res
+            ListNode process = new ListNode();
+            process.val = val;
+            ope.next = process;
+            ope = process;
+            // 判断是否该跳出
+            for (i = 0; i < lists.length; i++) {
+                if (lists[i] != null) {
+                    break;
+                }
+            }
+        }
+    }
+    /**
+     * 返回当前应该添加的那个链表的下标
+     * @author 44380
+     * @date 2022/6/1~23:54
+     * @param lists lists
+     * @return int 下标
+     */
+    private int mergeKLists_find(ListNode[] lists){
+        int min = Integer.MAX_VALUE;
+        int resi = 0;
+        for (int i = 0; i < lists.length; i++) {
+            // 获得当前最小值的下标
+            if (lists[i]!=null && lists[i].val < min){
+                resi = i;
+                min=lists[i].val;
+            }
+        }
+        // 坐标下移
+        if (lists[resi]!=null){
+            lists[resi] = lists[resi].next;
+        }
+        return min;
+    }
+
     /**
      * com.test.Solution.removeDuplicates():
      * 给你一个 升序排列 的数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。元素的 相对顺序 应该保持 一致 。
