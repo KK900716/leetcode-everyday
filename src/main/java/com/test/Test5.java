@@ -15,7 +15,7 @@ public class Test5 {
      */
     public static void main(String[] args) {
         Solution solution=new Solution();
-
+        System.out.println(solution.simplifyPath("/../"));
     }
 }
 /**
@@ -26,6 +26,88 @@ public class Test5 {
  */
 class Solution {
     /**
+     * 给你一个字符串 path ，表示指向某一文件或目录的 Unix 风格 绝对路径 （以 '/' 开头），请你将其转化为更加简洁的规范路径。
+     * 在 Unix 风格的文件系统中，一个点（.）表示当前目录本身；此外，两个点 （..） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。任意多个连续的斜杠（即，'//'）都被视为单个斜杠 '/' 。 对于此问题，任何其他格式的点（例如，'...'）均被视为文件/目录名称。
+     * 请注意，返回的 规范路径 必须遵循下述格式：
+     * 始终以斜杠 '/' 开头。
+     * 两个目录名之间必须只有一个斜杠 '/' 。
+     * 最后一个目录名（如果存在）不能 以 '/' 结尾。
+     * 此外，路径仅包含从根目录到目标文件或目录的路径上的目录（即，不含 '.' 或 '..'）。
+     * 返回简化后得到的 规范路径 。
+     * @author 44380
+     * @date 2022/6/6~23:34
+     * @param path 字符串
+     * @return java.lang.String
+     */
+    public String simplifyPath(String path) {
+        StringBuilder res=new StringBuilder();
+        int deep=0;
+        for (int i = 0; i < path.length(); i++) {
+            switch (path.charAt(i)){
+                case '/': {
+                    if (i+1<path.length() && '/'==path.charAt(i+1)){
+                        break;
+                    }else{
+                        res.append('/');
+                        deep++;
+                        break;
+                    }
+                }
+                case '.':{
+                    if (i+1<path.length() && '.'==path.charAt(i+1)){
+                        if (deep!=1){
+
+                        }
+                        deep--;
+                    }
+                    break;
+                }
+                default:{
+                    res.append(path.charAt(i));
+                }
+            }
+        }
+        if (res.charAt(res.length()-1) == '/'){
+            res.replace(res.length()-1,res.length(),"");
+        }
+        return res.toString();
+    }
+    /**
+     * 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
+     * 不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
+     * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+     * @author 44380
+     * @date 2022/6/6~23:26
+     * @param nums 数组
+     * @param val 值
+     * @return int
+     */
+    public int removeElement(int[] nums, int val) {
+        int length=nums.length;
+        int t=0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i]==val){
+                length--;
+            }else {
+                nums[t++]=nums[i];
+            }
+        }
+        return length;
+    }
+    /**
+     * 给你两个按 非递减顺序 排列的整数数组 nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。请你 合并 nums2 到 nums1 中，使合并后的数组同样按 非递减顺序 排列。
+     * 注意：最终，合并后数组不应由函数返回，而是存储在数组 nums1 中。为了应对这种情况，nums1 的初始长度为 m + n，其中前 m 个元素表示应合并的元素，后 n 个元素为 0 ，应忽略。nums2 的长度为 n 。
+     * @author 44380
+     * @date 2022/6/3~11:06
+     * @param nums1 整数数组nums1
+     * @param m 整数m
+     * @param nums2 整数数组nums2
+     * @param n 整数n
+     */
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+
+    }
+    /**
      * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
      * @author 44380
      * @date 2022/6/2~1:21
@@ -33,7 +115,12 @@ class Solution {
      * @return int
      */
     public int climbStairs(int n) {
-        return 0;
+        if (n==0 || n==1){
+            return 1;
+        }else if (n==2){
+            return 2;
+        }
+        return climbStairs(n-1)+climbStairs(n-2);
     }
     /**
      * 给你一个链表数组，每个链表都已经按升序排列。
